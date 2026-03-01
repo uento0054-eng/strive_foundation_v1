@@ -1,14 +1,29 @@
+
 workflows:
   android-release:
     name: Strive Android Release
     max_build_duration: 60
+
     environment:
       flutter: stable
+
+    cache:
+      cache_paths:
+        - ~/.pub-cache
+        - ~/.gradle
+
     scripts:
-      - flutter create .
-      - sed -i 's/minSdkVersion 21/minSdkVersion 23/' android/app/build.gradle
-      - sed -i 's/applicationId "com.example.strive"/applicationId "com.strive.gym"/' android/app/build.gradle
-      - flutter pub get
-      - flutter build appbundle --release
+      - name: Install dependencies
+        script: |
+          flutter pub get
+
+      - name: Verify Flutter setup
+        script: |
+          flutter doctor
+
+      - name: Build Android App Bundle (Release)
+        script: |
+          flutter build appbundle --release
+
     artifacts:
-      - build/app/outputs/bundle/release/app-release.aab
+      - build/app/outputs/bundle/release/*.aab
