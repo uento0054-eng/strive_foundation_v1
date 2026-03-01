@@ -1,0 +1,2 @@
+rootProject.name = "strive_app"
+include(":app")
