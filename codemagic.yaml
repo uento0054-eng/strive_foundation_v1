@@ -1,4 +1,3 @@
-
 workflows:
   android-release:
     name: Strive Android Release
@@ -13,17 +12,21 @@ workflows:
         - ~/.gradle
 
     scripts:
-      - name: Install dependencies
-        script: |
-          flutter pub get
+      - name: Create Flutter structure
+        script: flutter create .
 
-      - name: Verify Flutter setup
+      - name: Upgrade dependencies (FIX V1 embedding)
         script: |
-          flutter doctor
+          flutter pub upgrade --major-versions
 
-      - name: Build Android App Bundle (Release)
-        script: |
-          flutter build appbundle --release
+      - name: Install packages
+        script: flutter pub get
+
+      - name: Clean project
+        script: flutter clean
+
+      - name: Build AAB
+        script: flutter build appbundle --release
 
     artifacts:
       - build/app/outputs/bundle/release/*.aab
