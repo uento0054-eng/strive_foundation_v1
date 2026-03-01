@@ -1,0 +1,17 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+}
+
+android {
+    namespace "com.strive.gym"
+    compileSdkVersion 34
+
+    defaultConfig {
+        applicationId "com.strive.gym"
+        minSdkVersion 23
+        targetSdkVersion 34
+        versionCode 1
+        versionName "1.0"
+    }
+}
