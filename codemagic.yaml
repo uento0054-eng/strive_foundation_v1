@@ -12,17 +12,16 @@ workflows:
         - ~/.gradle
 
     scripts:
-      - name: Create Flutter structure
-        script: flutter create .
-
-      - name: Upgrade dependencies (FIX V1 embedding)
+      - name: Initialize Flutter project (only if needed)
         script: |
-          flutter pub upgrade --major-versions
+          if [ ! -f ".metadata" ]; then
+            flutter create .
+          fi
 
-      - name: Install packages
+      - name: Get dependencies
         script: flutter pub get
 
-      - name: Clean project
+      - name: Clean build
         script: flutter clean
 
       - name: Build AAB
